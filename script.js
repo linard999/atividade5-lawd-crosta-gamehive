@@ -14,8 +14,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
         if(title && comment) {
             const review = {
+                username: "gamehive ADM",
                 title: title,
-                username: "Fulano de tal" + " diz:",
                 comment: comment,
                 likes: 0,
                 dislikes: 0
@@ -23,6 +23,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
             
             addReview(review);
             saveReview(review);
+            clean();
         }
     });
 
@@ -33,24 +34,43 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
         //escolhe quais elementos serão exibidos na exibição do review
         reviewElement.innerHTML = `
+            <div class="row1">
+                <div class="row2">
+                    <img src="imagens/usuario.png" class="icon">
+                    <h4>${review.username}</h4>
+                </div>
+                <div class="column">
+                    <img src="imagens/star.png" class="fav" onclick="toggleFavorite(this)">
+                    <img src="imagens/share.png" class="fav" onclick="toggleShare(this)">
+                </div>
+            </div>
             <h3>${review.title}</h3>
-            <h4>${review.username}</h4>
             <p>${review.comment}</p>
-            <button class="like-button">Upvote (${review.likes})</button>
-            <button class="dislike-button">Downvote (${review.dislikes})</button>
+            <div class='row1'>
+                <button class="like-button"> 
+                    <img src="imagens/like.png" class="like-icon">
+                    <span class="like-count">${review.likes}</span>
+                </button>
+                <button class="dislike-button">
+                    <img src="imagens/dislike.png" class="like-icon">
+                    <span class="dislike-count">${review.dislikes}</span>
+                </button>
+            </div>
         `;
 
         const likeButton = reviewElement.querySelector('.like-button');
+        const likeCount = likeButton.querySelector('.like-count');
         likeButton.addEventListener('click', function() {
             review.likes++;
-            likeButton.textContent = `Like (${review.likes})`;
+            likeCount.textContent = review.likes;
             updateReviews();
         });
 
         const dislikeButton = reviewElement.querySelector('.dislike-button');
+        const dislikeCount = dislikeButton.querySelector('.dislike-count');
         dislikeButton.addEventListener('click', function() {
             review.dislikes++;
-            dislikeButton.textContent = `Dislike (${review.dislikes})`;
+            dislikeCount.textContent = review.dislikes;
             updateReviews();
         });
 
@@ -85,4 +105,24 @@ document.addEventListener('DOMContentLoaded', (event) => {
         });
         localStorage.setItem('reviews', JSON.stringify(reviews));
     }
+    function clean(){
+        document.getElementById('gameTitle').value = '';
+        document.getElementById('gameComment').value = '';
+    }
 });
+
+function toggleFavorite(favButton) {
+    if (favButton.src.endsWith('imagens/star.png')) {
+        favButton.src = 'imagens/starfull.png';
+    } else {
+        favButton.src = 'imagens/star.png';
+    }
+}
+
+function toggleShare(shareButton) {
+    if (shareButton.src.endsWith('imagens/share.png')) {
+        shareButton.src = 'imagens/sharefull.png';
+    } else {
+        shareButton.src = 'imagens/share.png';
+    }
+}
