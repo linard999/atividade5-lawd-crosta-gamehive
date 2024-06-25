@@ -1,3 +1,12 @@
+const sr = ScrollReveal ({
+    distance: '50px',
+    duration: 2500,
+    delay: 500,
+    reset: true
+});
+
+sr.reveal('.container',{delay:200, origin:'top'});
+
 document.addEventListener('DOMContentLoaded', (event) => {
     const reviewForm = document.getElementById('reviewForm');
     const reviewsContainer = document.getElementById('reviews');
@@ -10,12 +19,14 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
         // pega os valores dos inputs
         const title = document.getElementById('gameTitle').value;
+        const platform = document.getElementById('gamePlatform').value;
         const comment = document.getElementById('gameComment').value;
 
         if(title && comment) {
             const review = {
                 username: "gamehive ADM",
                 title: title,
+                platform: platform,
                 comment: comment,
                 likes: 0,
                 dislikes: 0
@@ -45,6 +56,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 </div>
             </div>
             <h3>${review.title}</h3>
+            <h3>${review.platform}</h3>
             <p>${review.comment}</p>
             <div class='row1'>
                 <button class="like-button"> 
@@ -107,6 +119,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     }
     function clean(){
         document.getElementById('gameTitle').value = '';
+        document.getElementById('gamePlatform').value = '';
         document.getElementById('gameComment').value = '';
     }
 });
