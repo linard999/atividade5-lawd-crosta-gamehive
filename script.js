@@ -1,12 +1,3 @@
-const sr = ScrollReveal ({
-    distance: '50px',
-    duration: 2500,
-    delay: 500,
-    reset: true
-});
-
-sr.reveal('.container',{delay:200, origin:'top'});
-
 document.addEventListener('DOMContentLoaded', (event) => {
     const reviewForm = document.getElementById('reviewForm');
     const reviewsContainer = document.getElementById('reviews');
